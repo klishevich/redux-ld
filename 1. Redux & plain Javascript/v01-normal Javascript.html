@@ -2,19 +2,44 @@
 <html>
   <head>
     <title>Redux basic example</title>
+    <!--STEP 1.1-->
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+    <!--~end STEP 1.1-->
   </head>
   <body>
     <div>
       <p>
-        Clicked: <span id="value">0</span> times
+        Clicked: <span id="value">?</span> times
         <button id="decrement">Decrease</button>
         <button id="incrementAsync">Increment async</button>
       </p>
     </div>
     <script>
+      // step 1.2
+      console.group('Redux.createStore(REDUCER)')
+      var store = Redux.createStore(counter);
+      console.groupEnd('Redux.createStore(REDUCER)')
+      // ~end step 1.2
+      // step 2.2
+      function counter(currentState) { // REDUCER
+        DEFAULT_STATE = { count: 0, sum: 0};
+        console.group('REDUCER')
+        var nextState = Object.assign({}, currentState);
+        console.log('current STATE == ', currentState)
+        if (currentState === undefined){
+          nextState = DEFAULT_STATE;
+          console.log('next STATE == ', nextState)
+        }
+        console.groupEnd('REDUCER')
+        return nextState;
+      }
+      // ~end step 2.2
       var valueEl = document.getElementById('value');
       function render() {
-        valueEl.innerHTML = 0;
+        console.group('render()');
+        console.info('STATE == store.getState() == ', store.getState());
+        valueEl.innerHTML = store.getState().count;
+        console.groupEnd('render()');
       }
       render();
 
